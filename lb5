@@ -1,0 +1,94 @@
+# pd-24
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace _5lab
+{
+    class Program
+    {
+        static void Main()
+        {
+            //Дана квадратна матриця порядку M 
+            //Знайти суми елементів її діагоналей, паралельних 
+            //1) головній; 
+            //2) побічній
+            //починаючи з одноелементної діагоналі 1) A[1,M]; 2) А[1,1]). 
+
+            int m;
+            do
+            {
+                int.TryParse(Console.ReadLine(), out m);
+                if (m <= 0)
+                    Console.WriteLine("Error!");
+            } while (m <= 0);
+
+            int[,] matrix = new int[m, m];
+
+            Random rand = new Random();
+            for (int i = 0; i < m; i++)
+            {
+                for (int j = 0; j < m; j++)
+                {
+                    matrix[i, j] = rand.Next(0, 20);
+                    Console.Write(matrix[i, j] + " ");
+                }
+                Console.WriteLine();
+            }
+
+            Console.WriteLine("Above the main diagonal: ");
+            for (int j = m - 1; j > 0; j--)
+            {
+                int tempJ = j;
+                int sum = 0;
+                for (int i = 0; tempJ < m; i++, tempJ++)
+                {
+                    sum += matrix[i, tempJ];
+                }
+                Console.WriteLine(m - j + " znachna diagonal: " + sum);
+            }
+
+            Console.WriteLine("Below the main diagonal: ");
+            for (int i = m - 1; i > 0; i--)
+            {
+                int tempI = i;
+                int sum = 0;
+                for (int j = 0; tempI < m; j++, tempI++)
+                {
+                    sum += matrix[tempI, j];
+                }
+                Console.WriteLine(m - i + " znachna diagonal: " + sum);
+            }
+            Console.WriteLine();
+
+
+            Console.WriteLine("Above the second diagonal: ");
+            for (int i = 0; i < m - 1; i++)
+            {
+                int tempI = i;
+                int sum = 0;
+                for (int j = 0; tempI >= 0; j++, tempI--)
+                {
+                    sum += matrix[tempI, j];
+                }
+                Console.WriteLine(i + 1 + " znachna diagonal: " + sum);
+            }
+
+            Console.WriteLine("Below the second diagonal: ");
+            for (int j = 1; j < m ; j++)
+            {
+                int tempJ = j;
+                int sum = 0;
+                for (int i = m-1; tempJ < m; i--, tempJ++)
+                {
+                    sum += matrix[i, tempJ];
+                }
+                Console.WriteLine(m - j - 1 + " znachna diagonal: " + sum);
+            }
+
+            Console.ReadKey();
+        }
+    }
+}
